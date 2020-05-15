@@ -3,10 +3,19 @@ package dominio;
 public class Instancia {
     
     private String instancia;
-    
-    public void add(String insercion) {
-        if(instancia.isEmpty()) instancia = "'" + insercion + "'";
-        else instancia = instancia + ", '" + insercion + "'";
+    public String salto = "\134" + "N";
+
+    public void annadir(String[] insercion) {
+	for (String valores : insercion) {
+	    while (!valores.equals(salto)) {
+                if (instancia.isEmpty()) instancia = valores;
+		else {
+		    String sentencia = "','" + valores;
+		    instancia.concat(sentencia);
+		}
+	    }
+	    System.out.println(getInstancia());
+	}
     }
     
     public String getInstancia() {
@@ -14,6 +23,6 @@ public class Instancia {
     }
     
     public String toString(String base, String tabla) {
-        return "INSERT INTO" + base + "." + tabla + "(" + getInstancia() + ");";
+        return "INSERT INTO " + base + "." + tabla + "('" + getInstancia() + "');";
     }
 }

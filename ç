@@ -27,6 +27,16 @@ public class GenerarInstacia {
     public void setInicio(long inicio) { this.inicio = inicio; }
     public void setFin(long fin) { this.fin = fin; }
 
+    public void setUser(String usuario, String contraseña) {
+        setUsuario(usuario);
+        setContrasenna(contraseña);
+    }
+
+    public void setBBDD(String base, String tabla) {
+        setBase(base);
+        setTabla(tabla);
+    }
+
     public String tiempo() {
     	long tiempoTotal = getFin() - getInicio();
 	return "\nDatos insertados correctamente.\nTiempo total de inserción = " 
@@ -38,7 +48,8 @@ public class GenerarInstacia {
 	    String separador = System.getProperty("file.separator");
 	    File f = new File(".");
 	    String pathInicial = f.getCanonicalPath();
-	    path = pathInicial + separador + "datos" + separador + fichero;
+	    String pathIntermedio = pathInicial + separador + ".." + separador + "..";
+	    path = pathIntermedio + separador + "datos" + separador + fichero;
 	}
 	catch (Exception e) { 
             System.out.println("Fallo al obtener el path del fichero");
@@ -52,7 +63,6 @@ public class GenerarInstacia {
     public void obtenerDatos(String f) {
         try {
 	    setPath(f);
-	    System.out.println(f);
 	    File fichero = new File(getPath());
 	    FileReader fr = new FileReader(fichero);
 	    BufferedReader br = new BufferedReader(fr);
@@ -70,13 +80,13 @@ public class GenerarInstacia {
     public void instancias() {
         try {
 	    String instanciaSimple;
-	    Instancia i = new Instancia();
 	    for (int x = 0; x < datos.size(); x++) {
+                Instancia i = new Instancia();
                 instanciaSimple = datos.get(x);
-		String[] instanciaFinal = instanciaSimple.split("\t", 50);
-		for ( valores : instanciaFinal) {
-		    i.annadir(instanciaFinal);
-		}
+                String[] instanciaFinal = instanciaSimple.split("\t", 50);
+                for (String instancia : instanciaFinal) {
+                    i.add(instancia);
+                }
 	        instancias.add(i);
 	    }
         }
@@ -85,13 +95,9 @@ public class GenerarInstacia {
 	}
     }
 
-    public void insertarDatos(String usuario, String contrasenna, String base, String tabla, String fichero) {
+    public void insertarDatos(String fichero) {
         try {
             setInicio(System.nanoTime());
-	    setUsuario(usuario);
-	    setContrasenna(contrasenna);
-	    setBase(base);
-	    setTabla(tabla);
             obtenerDatos(fichero);
             instancias();
             for (int i = 0; i < instancias.size(); i++) {

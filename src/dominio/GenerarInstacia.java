@@ -71,19 +71,24 @@ public class GenerarInstacia {
         }
     }
 
+    public String tiempo() {
+	    tiempoTotal = getFin() - getInicio();
+	    return "\nDatos Insertados.\nTiempo total de inserción = " + tiempoTotal + ".\n";
+    }
+
     public String insertarDatos() {
         try {
-            inicio = System.nanoTime();
+            setInicio(System.nanoTime());
             obtenerDatos();
             instancias();
             for (int i = 0; i < instancias.size(); i++) {
                 String s = instancias.get(i).toString(getBase(), getTabla());
                 Conexion c = new Conexion(s, getBase(), getUsuario(), getContrasenna());
             }
-            fin = System.nanoTime();
-            return "Datos insertados";
+            setFin(System.nanoTime());
+	    tiempo();
         } catch (Exception e) {
-            return "Datos no insertados";
+            return "\nDatos no insertados\n";
         }
     }
 }

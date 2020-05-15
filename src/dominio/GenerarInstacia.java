@@ -8,12 +8,8 @@ import java.util.ArrayList;
 
 public class GenerarInstacia {
 
-    private String base;
-    private String tabla;
-    private String usuario;
-    private String contrasenna;
-    private long inicio;
-    private long fin;
+    private String base, tabla, usuario, contrasenna, path;
+    private long inicio, fin;
     ArrayList<String> datos = new ArrayList<>();
     ArrayList<Instancia> instancias = new ArrayList<>();
     
@@ -41,21 +37,34 @@ public class GenerarInstacia {
         setBase(base);
         setTabla(tabla);
     }
-    
-    public void obtenerDatos() {
-        try {
-            File fichero = new File("C:\\archivo.txt");
-            FileReader fr = new FileReader(fichero);
-            BufferedReader br = new BufferedReader(fr);
 
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                datos.add(linea);
-            }
-        } 
-        catch(IOException e) {
-            System.out.println(e);
-        }
+    public String tiempo(){
+    	tiempoTotal = getFin() - getInicio();
+	return "\nDatos insertados correctamente.\nTiempo total de inserción = " + tiempoTotal + " nanosegundos.";    }
+
+    public void setPath(String fichero) {
+	String separador = System.getProperty("file.separator");
+    	File f = new File(".");
+	path = path.getCanonicaPath() + separador + fichero;
+    }
+
+    public String getPath() {
+        return path;	
+    }
+
+    public void obtenerDatos(String f) {
+        try {
+		setPath(f);
+		File fichero = new File(getPath());
+            	FileReader fr = new FileReader(fichero);
+            	BufferedReader br = new BufferedReader(fr);
+
+            	String linea;
+            	while ((linea = br.readLine()) != null) {
+                	datos.add(linea);
+            	}
+	}	
+        catch(IOException e) { System.out.println(e); }
     }
     
     public void instancias() {
@@ -69,11 +78,6 @@ public class GenerarInstacia {
             }
             instancias.add(i);
         }
-    }
-
-    public String tiempo() {
-	    tiempoTotal = getFin() - getInicio();
-	    return "\nDatos Insertados.\nTiempo total de inserción = " + tiempoTotal + ".\n";
     }
 
     public String insertarDatos() {

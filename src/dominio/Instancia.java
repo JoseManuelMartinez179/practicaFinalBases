@@ -12,17 +12,21 @@ public class Instancia {
  	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
 	            instancia = palabra;
 		} 
-		else {}
+		else {instancia = instancia + ",'"; }
   	    }
 	    else {
 	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
 		    instancia = instancia + "','" + palabra;
 		}
-    		else {}
+    		else { instancia = instancia + ",'"; }
 	    }		
 	 }
     }
-    
+   
+    public void clear() {
+    	instancia = "";
+    }
+
     public String getInstancia() {
         return instancia;
     }

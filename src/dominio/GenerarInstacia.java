@@ -75,7 +75,9 @@ public class GenerarInstacia {
                 instanciaSimple = datos.get(x);
 		String[] instanciaFinal = instanciaSimple.split("\t", 50);
 	        i.annadir(instanciaFinal);
+		System.out.println(i.toString(getBase(),getTabla()));
 		instancias.add(i);
+		i.clear();
 	    }
         }
 	catch (Exception e) {

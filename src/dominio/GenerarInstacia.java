@@ -95,8 +95,8 @@ public class GenerarInstacia {
             obtenerDatos(fichero);
             instancias();
             for (int i = 0; i < instancias.size(); i++) {
-                String s = instancias.get(i).toString(getBase(), getTabla());
-                Conexion c = new Conexion(s, getBase(), getUsuario(), getContrasenna());
+                String consulta = instancias.get(i).toString(getBase(), getTabla());
+                Conexion c = new Conexion(consulta, getBase(), getUsuario(), getContrasenna());
             }
             setFin(System.nanoTime());
 	    System.out.println(tiempo());

@@ -1,1 +1,2 @@
 Main-Class: aplicacion.Principal
+Class-Path: lib/mysql-connector-java-8.0.18.jar

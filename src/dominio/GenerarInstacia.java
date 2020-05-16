@@ -67,41 +67,30 @@ public class GenerarInstacia {
 	}
     }
     
-    public void instancias() {
+    public void instancias(String usuario, String contrasenna, String base, String tabla, String fichero) {
         try {
-	    String instanciaSimple;
-	    Instancia i = new Instancia();
-	    for (int x = 0; x < datos.size(); x++) {
-                instanciaSimple = datos.get(x);
-		String[] instanciaFinal = instanciaSimple.split("\t", 50);
-	        i.annadir(instanciaFinal);
-		System.out.println(i.toString(getBase(),getTabla()));
-		instancias.add(i);
-		i.clear();
-	    }
-        }
-	catch (Exception e) {
-	    System.out.println("Fallo al generar las instancias");
-	}
-    }
-
-    public void insertarDatos(String usuario, String contrasenna, String base, String tabla, String fichero) {
-        try {
-            setInicio(System.nanoTime());
+	    setInicio(System.nanoTime());
 	    setUsuario(usuario);
 	    setContrasenna(contrasenna);
 	    setBase(base);
 	    setTabla(tabla);
-            obtenerDatos(fichero);
-            instancias();
-            for (int i = 0; i < instancias.size(); i++) {
-                String consulta = instancias.get(i).toString(getBase(), getTabla());
-                Conexion c = new Conexion(consulta, getBase(), getUsuario(), getContrasenna());
-            }
-            setFin(System.nanoTime());
+	    obtenerDatos(fichero);
+	    String instanciaSimple;
+	    //Instancia i = new Instancia();
+	    for (int x = 0; x < datos.size(); x++) {
+                Instancia i = new Instancia();
+		instanciaSimple = datos.get(x);
+		String[] instanciaFinal = instanciaSimple.split("\t", 50);
+	        i.annadir(instanciaFinal);
+		System.out.println(i.toString(getBase(),getTabla()));
+		Conexion c = new Conexion(i.toString(getBase(), getTabla()), getBase(), getUsuario(), getContrasenna());
+		i.clear();
+	    }
+	    setFin(System.nanoTime());
 	    System.out.println(tiempo());
-        } catch (Exception e) {
-            System.out.println("\nDatos no insertados\n");
         }
+	catch (Exception e) {
+	    System.out.println("Datos no insertados");
+	}
     }
 }

@@ -74,10 +74,8 @@ public class GenerarInstacia {
 	    for (int x = 0; x < datos.size(); x++) {
                 instanciaSimple = datos.get(x);
 		String[] instanciaFinal = instanciaSimple.split("\t", 50);
-		for ( valores : instanciaFinal) {
-		    i.annadir(instanciaFinal);
-		}
-	        instancias.add(i);
+	        i.annadir(instanciaFinal);
+		instancias.add(i);
 	    }
         }
 	catch (Exception e) {

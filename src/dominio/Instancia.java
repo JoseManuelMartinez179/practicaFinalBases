@@ -2,20 +2,25 @@ package dominio;
 
 public class Instancia {
     
-    private String instancia;
-    public String salto = "\134" + "N";
+    private String instancia="";
+    public String salto = "\134";
 
     public void annadir(String[] insercion) {
-	for (String valores : insercion) {
-	    while (!valores.equals(salto)) {
-                if (instancia.isEmpty()) instancia = valores;
-		else {
-		    String sentencia = "','" + valores;
-		    instancia.concat(sentencia);
+	for (int i=0; i<insercion.length; i++) {
+	    String palabra = insercion[i];
+	    if (instancia.isEmpty()) {
+ 	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
+	            instancia = palabra;
+		} 
+		else {}
+  	    }
+	    else {
+	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
+		    instancia = instancia + "','" + palabra;
 		}
-	    }
-	    System.out.println(getInstancia());
-	}
+    		else {}
+	    }		
+	 }
     }
     
     public String getInstancia() {

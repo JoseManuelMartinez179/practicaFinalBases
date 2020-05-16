@@ -12,13 +12,13 @@ public class Instancia {
  	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
 	            instancia = palabra;
 		} 
-		else {instancia = instancia + ",'"; }
+		else {instancia = instancia + ","; }
   	    }
 	    else {
 	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
-		    instancia = instancia + "','" + palabra;
+		    instancia = instancia + "," + palabra;
 		}
-    		else { instancia = instancia + ",'"; }
+    		else { instancia = instancia + ","; }
 	    }		
 	 }
     }
@@ -32,6 +32,6 @@ public class Instancia {
     }
     
     public String toString(String base, String tabla) {
-        return "INSERT INTO " + base + "." + tabla + "('" + getInstancia() + "');";
+        return "INSERT INTO " + base + "." + tabla + " VALUES (" + getInstancia() + ");";
     }
 }

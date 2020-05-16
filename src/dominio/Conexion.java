@@ -11,7 +11,7 @@ public class Conexion {
     
     public Conexion(String consulta, String database, String usuario, String contrasenna) {        
         try{
-            String url = "jdbc:mysql://localhost:3306/" + database;
+            String url = "jdbc:mysql://localhost:3306/" + database + "?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
             
             Class.forName(driver);
             conexion = DriverManager.getConnection(url, usuario, contrasenna);  

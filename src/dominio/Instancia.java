@@ -10,19 +10,23 @@ public class Instancia {
 	    String palabra = insercion[i];
 	    if (instancia.isEmpty()) {
  	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
-	            instancia = palabra;
+	            instancia = "'" + palabra + "'" ;
 		} 
-		else {instancia = instancia + ","; }
+		else {
+		    instancia = instancia + "NULL"; 
+		}
   	    }
 	    else {
 	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
-		    instancia = instancia + "," + palabra;
+		    instancia = instancia + ",'" + palabra + "'";
 		}
-    		else { instancia = instancia + ","; }
+    		else { 
+		    instancia = instancia + ",NULL"; 
+		}
 	    }		
 	 }
     }
-   
+
     public void clear() {
     	instancia = "";
     }

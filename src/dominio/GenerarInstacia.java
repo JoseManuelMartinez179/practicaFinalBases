@@ -11,7 +11,6 @@ public class GenerarInstacia {
     private String base, tabla, usuario, contrasenna, path;
     private long inicio, fin;
     ArrayList<String> datos = new ArrayList<>();
-    ArrayList<Instancia> instancias = new ArrayList<>();
     
     public String getBase() { return base; }
     public String getTabla() { return tabla; }
@@ -28,9 +27,9 @@ public class GenerarInstacia {
     public void setFin(long fin) { this.fin = fin; }
 
     public String tiempo() {
-    	long tiempoTotal = getFin() - getInicio();
+    	double tiempoTotal = (getFin() - getInicio()) * Math.pow(10, -9);
 	return "\nDatos insertados correctamente.\nTiempo total de inserción = " 
-		+ tiempoTotal + " nanosegundos.";    
+		+ tiempoTotal + " segundos.";    
     }
 
     public void setPath(String fichero) {
@@ -76,7 +75,6 @@ public class GenerarInstacia {
 	    setTabla(tabla);
 	    obtenerDatos(fichero);
 	    String instanciaSimple;
-	    //Instancia i = new Instancia();
 	    for (int x = 0; x < datos.size(); x++) {
                 Instancia i = new Instancia();
 		instanciaSimple = datos.get(x);

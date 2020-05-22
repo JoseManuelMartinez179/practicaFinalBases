@@ -15,7 +15,7 @@ public class Interfaz {
 	}
 	else if (args[0].equals("help")) {
 	    System.out.println("\nPara importar un fichero --> java -jar instancias.jar insert <Usuario MySQL> <Contraseña> <Base de Datos> <Tabla> <Nombre del fichero> \n\n"+
-			    "Para importar un fichero (función optimizada) --> java -jar instancias.jar optimized-insert <Usuario MySQL> <Contraseña> <Base de Datos> <Nombre del fichero>\n\n" +
+			    "Para importar un fichero (función optimizada) --> java -jar instancias.jar optimized-insert <Usuario MySQL> <Contraseña> <Base de Datos> <Tabla> <Nombre del fichero>\n\n" +
 			    "Para poder importar un fichero este primero debe estar copiado en la carpeta 'datos' del proyecto.\n");
 	}
 	else System.out.println("\nOpción incorrecta "

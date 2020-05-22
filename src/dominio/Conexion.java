@@ -37,6 +37,7 @@ public class Conexion {
             Class.forName(driver);
             conexion = DriverManager.getConnection(url, usuario, contrasenna);  
             statement = conexion.createStatement();
+	    statement.executeQuery("USE " + database + ";");
             statement.executeUpdate("LOAD DATA INFILE '" + fichero + "' INTO " + tabla + " FIELDS TERMINATED BY '" + tabulador + "';");
             
             conexion.close();

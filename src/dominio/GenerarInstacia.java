@@ -38,6 +38,22 @@ public class GenerarInstacia {
 	catch(Exception e) { System.out.println("Fallo al obtener el path del fichero"); }
     }
 
+    // Método para copiar el archivo al directorio que se encuentra en el 'secure_file_priv'
+    public void copiarArchivo(String pathOrigen, String base, String usuario, String contrasenna) {
+        try {
+	    Conexion c = new Conexion();
+            String pathDestino = c.obtenerSFP(base, usuario, contrasenna);
+            File ficheroCopiar = new File(pathOrigen);
+            File ficheroDestino = new File(pathDestino);
+            if(ficheroCopiar.exists()) {
+                Files.copy(Paths.get(ficheroCopiar.getAbsolutePath()), Paths.get(ficheroDestino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+            } 
+	    else {
+                System.out.println("El fichero no existe en " + pathOrigen);
+            }
+    	} catch (Exception e) { e.printStackTrace(); }
+    }
+
     // Método para calcular el tiempo de inserción
     public String tiempo() {
     	double tiempoTotal = (getFin() - getInicio()) * Math.pow(10, -9);
@@ -94,11 +110,41 @@ public class GenerarInstacia {
 	    setBase(base);
 	    setTabla(tabla);
             setPath(fichero);
-	    Conexion c = new Conexion(getPath(), getBase(), getTabla(), getUsuario(), getContrasenna());
+	    copiarArchivo(getPath(), getBase(), getUsuario(), getContrasenna());
+	    Conexion c = new Conexion(fichero, getBase(), getTabla(), getUsuario(), getContrasenna());
 	    setFin(System.nanoTime());
 	    System.out.println(tiempo());
 	    System.out.println("Datos insertados");
 	}
 	catch(Exception e) { System.out.println("Datos no insertados"); }
     }
+}
+
+
+
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
+/**
+ *
+ * @author SoftMolina
+ */
+public class MoverArchivoMove {
+
+    public static void main(String[] args) {
+
+        Path origenPath = FileSystems.getDefault().getPath("C:\\carpeta1\\ejemplo1.txt");
+        Path destinoPath = FileSystems.getDefault().getPath("C:\\carpeta2\\ejemplo1.txt");
+
+        try {
+            Files.move(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
+    }
+
 }

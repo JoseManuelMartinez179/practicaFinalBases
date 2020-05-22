@@ -1,6 +1,7 @@
 package dominio;
 
 import java.sql.*;
+import java.io.InputStream;
 
 // Clase responsable de la conexión con la Base de Datos MySQL
 public class Conexion {
@@ -24,9 +25,7 @@ public class Conexion {
             
             conexion.close();
         }
-        catch(ClassNotFoundException | SQLException e){ 
-            System.out.println(e);
-        }
+        catch(ClassNotFoundException | SQLException e) { System.out.println(e); }
     }
 
     // Constructor para la inserción optimizada
@@ -38,12 +37,34 @@ public class Conexion {
             conexion = DriverManager.getConnection(url, usuario, contrasenna);  
             statement = conexion.createStatement();
 	    statement.executeQuery("USE " + database + ";");
-            statement.executeUpdate("LOAD DATA INFILE '" + fichero + "' INTO " + tabla + " FIELDS TERMINATED BY '" + tabulador + "';");
+            statement.executeUpdate("LOAD DATA INFILE '" + fichero + "' INTO TABLE " + tabla + " FIELDS TERMINATED BY '" + tabulador + "';");
             
             conexion.close();
         }
-        catch(ClassNotFoundException | SQLException e){ 
-            System.out.println(e);
+        catch(ClassNotFoundException | SQLException e) { System.out.println(e); }
+    }
+    
+    // Método para obtener el valor del 'secure_file_priv'
+    public String obtenerSFP(String database, String usuario, String contrasenna) {        
+        try{
+            String url = "jdbc:mysql://localhost:3306/" + database + "?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            
+            Class.forName(driver);
+            conexion = DriverManager.getConnection(url, usuario, contrasenna);  
+            statement = conexion.createStatement();
+	    resultado = statement.executeQuery("SHOW VARIABLES LIKE 'secure_file_priv';");
+            String value;
+	    while(resultado.next()) {
+                String variable = resultado.getString("Variable_name");
+               	value = resultado.getString("Value");
+            }
+	    return value;	
+
+            conexion.close();
         }
+        catch(ClassNotFoundException | SQLException e) { System.out.println(e); }
+    }
+
+    public Conexion() {
     }
 }

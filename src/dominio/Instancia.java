@@ -8,25 +8,25 @@ public class Instancia {
 
     // Método para construir una instancia
     public void annadir(String[] insercion) {
-	for (int i=0; i<insercion.length; i++) {
-	    String palabra = insercion[i];
-	    if (instancia.isEmpty()) {
+			for (int i=0; i<insercion.length; i++) {
+	    	String palabra = insercion[i];
+	    	if (instancia.isEmpty()) {
  	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
 	            instancia = "'" + palabra + "'" ;
-		} 
-		else {
-		    instancia = instancia + "NULL"; 
-		}
+					} 
+					else {
+		    		instancia = instancia + "NULL"; 
+					}
   	    }
-	    else {
+	    	else {
 	        if (!palabra.isEmpty() && !palabra.startsWith(salto)) {
-		    instancia = instancia + ",'" + palabra + "'";
-		}
-    		else { 
-		    instancia = instancia + ",NULL"; 
-		}
-	    }		
-	 }
+		    		instancia = instancia + ",'" + palabra + "'";
+					}
+    			else { 
+		    		instancia = instancia + ",NULL"; 
+					}
+	    	}		
+	 		}
     }
 
     // Método para limpiar el String instancia
